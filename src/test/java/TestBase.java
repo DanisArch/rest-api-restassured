@@ -1,8 +1,8 @@
 import io.restassured.RestAssured;
-import jdk.jfr.ContentType;
+import io.restassured.filter.log.RequestLoggingFilter;
+import io.restassured.filter.log.ResponseLoggingFilter;
+import io.restassured.http.ContentType;
 import org.junit.jupiter.api.BeforeAll;
-
-import javax.swing.text.AbstractDocument;
 
 import static io.restassured.RestAssured.given;
 
@@ -13,6 +13,7 @@ public class TestBase {
     public static void  setup() {
         RestAssured.baseURI = url;
         RestAssured.basePath ="api";
-        RestAssured.requestSpecification() = given().accept(ContentType.ANY);
+        RestAssured.requestSpecification = given().accept(ContentType.ANY);
+        RestAssured.filters(new RequestLoggingFilter(),new ResponseLoggingFilter());
     }
 }
